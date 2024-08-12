@@ -1,0 +1,16 @@
+
+
+# Asegúrate de configurar el PATH antes de cargar la librería reticulate o usar funciones de Python
+current_path <- Sys.getenv("PATH")
+gcloud_path <- "/home/huerta/google-cloud-sdk/bin"
+new_path <- paste(gcloud_path, current_path, sep=":")
+
+Sys.setenv(PATH = new_path)
+
+library(reticulate)
+ee <- import('ee')
+ee$Authenticate()
+ee$Initialize(project = 'ee-julius013199')
+ic <- ee$ImageCollection('LANDSAT/LT05/C02/T1_TOA')
+img <- ic$first()
+img$getInfo()
